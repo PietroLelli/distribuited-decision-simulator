@@ -16,6 +16,9 @@ fun main() {
 
     val warehouse : Warehouse = WarehouseImpl("Warehouse1")
 
+    val resource1 : Resource = ResourceImpl("Resource1")
+    val planner1 : Planner = PlannerImpl("Planner1")
+
     fun printProductionUnits() {
         println("ProductionUnit1 teams:")
         productionUnit1.teams.forEach { println("- ${it.idCode}") }
@@ -74,6 +77,12 @@ fun main() {
             println("\t- ${resource.key.idCode}: ${resource.value}")
         }
     }
+
+    println("\nInitial Warehouse state:")
+    printWarehouseStatus(warehouse)
+    planner1.addResourceToWarehouse(warehouse, resource1, 5)
+    println("\nAdd 5 Resource1 to the Warehouse")
+    printWarehouseStatus(warehouse)
 
     //initial state
     printOrderStatus(order1)
