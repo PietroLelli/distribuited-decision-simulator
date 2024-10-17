@@ -1,5 +1,7 @@
+package domain.interfaces
+
 interface OrderGenerator {
-    val IdCode: String
+    val idCode: String
 
     fun generateOrder(order: Order)
     fun modifyOrder(idOrder: String, newOrder: Order)

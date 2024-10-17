@@ -1,7 +1,9 @@
+package domain.interfaces
+
 interface Team {
-    val IdCode: String
-    val members: List<Individual>
-    val underTeams: List<Team>
+    val idCode: String
+    var members: List<Individual>
+    var underTeams: List<Team>
 
     fun addMember(member: Individual)
     fun removeMember(memberId: String)

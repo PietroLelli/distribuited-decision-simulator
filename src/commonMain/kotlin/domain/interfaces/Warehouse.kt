@@ -1,8 +1,10 @@
+package domain.interfaces
+
 interface Warehouse {
-    val IdCode: String
-    val products: List<Pair<Product, Int>>
-    val byProduct: List<Pair<ByProduct, Int>>
-    val resources: List<Pair<Resource, Int>>
+    val idCode: String
+    var products: Map<Product, Int>
+    var byProducts: Map<ByProduct, Int>
+    var resources: Map<Resource, Int>
 
     fun addProduct(product: Product, quantity: Int)
     fun addByProduct(byProduct: ByProduct, quantity: Int)
