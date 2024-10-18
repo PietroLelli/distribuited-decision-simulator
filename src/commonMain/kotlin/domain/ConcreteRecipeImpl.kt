@@ -32,6 +32,6 @@ private fun cloneActivity(activity: Activity): Activity {
         activity.priority,
         activity.state,
         activity.productResult,
-        activity.byProductResult
+        activity.requiredResources
     )
 }

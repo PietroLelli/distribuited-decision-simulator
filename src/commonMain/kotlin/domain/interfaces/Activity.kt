@@ -7,8 +7,8 @@ interface Activity {
     var time: Double
     var priority: Int
     var state: ActivityState
+    var requiredResources: Map<Resource, Int>
     var productResult: Product?
-    var byProductResult: ByProduct?
 
     fun execute(): Product?
     fun getActivityTotalCost(): Double

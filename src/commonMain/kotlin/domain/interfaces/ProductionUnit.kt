@@ -8,9 +8,11 @@ interface ProductionUnit {
     fun addActivityToWaitingList(activity: Activity)
     fun removeActivityFromWaitingList(activityId: String)
 
-    fun doNextActivityFromWaitingList(): Product?
-    fun doActivity(activity: Activity): Product?
+    fun doNextActivityFromWaitingList(warehouse: Warehouse)
+    fun doActivity(activity: Activity, warehouse: Warehouse)
 
     fun addTeam(team: Team)
     fun removeTeam(teamId: String)
+
+    fun assignActivityToOtherProductionUnit(activity: Activity, productionUnit: ProductionUnit)
 }

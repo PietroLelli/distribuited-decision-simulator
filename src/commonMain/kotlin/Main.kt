@@ -17,6 +17,7 @@ fun main() {
     val warehouse : Warehouse = WarehouseImpl("Warehouse1")
 
     val resource1 : Resource = ResourceImpl("Resource1")
+    val resource2 : Resource = ResourceImpl("Resource2")
     val planner1 : Planner = PlannerImpl("Planner1")
 
     fun printProductionUnits() {
@@ -43,8 +44,8 @@ fun main() {
 
     val product1 : Product = FinalProductImpl("FinalProduct1")
     val product2 : Product = ByProductImpl("ByProduct2")
-    val activity1 : Activity = ActivityImpl("Activity1", 1.0, 1.0, 1.0, 1, ActivityState.TOBEASSIGNED, product1)
-    val activity2 : Activity = ActivityImpl("Activity2", 2.0, 2.0, 2.0, 2, ActivityState.TOBEASSIGNED, product2)
+    val activity1 : Activity = ActivityImpl("Activity1", 1.0, 1.0, 1.0, 1, ActivityState.TOBEASSIGNED, product1, mapOf(resource1 to 1))
+    val activity2 : Activity = ActivityImpl("Activity2", 2.0, 2.0, 2.0, 2, ActivityState.TOBEASSIGNED, product2, mapOf(resource2 to 2))
     val recipe1 : Recipe = RecipeImpl("Recipe1", listOf(activity1, activity2))
     val concreteRecipe1 : ConcreteRecipe = ConcreteRecipeImpl("ConcreteRecipe1", recipe1)
     val concreteRecipe2 : ConcreteRecipe = ConcreteRecipeImpl("ConcreteRecipe2", recipe1)
@@ -79,7 +80,9 @@ fun main() {
     println("\nInitial Warehouse state:")
     printWarehouseStatus(warehouse)
     planner1.addResourceToWarehouse(warehouse, resource1, 5)
+    planner1.addResourceToWarehouse(warehouse, resource2, 10)
     println("\nAdd 5 Resource1 to the Warehouse")
+    println("\nAdd 10 Resource2 to the Warehouse")
     printWarehouseStatus(warehouse)
 
     //initial state
@@ -89,28 +92,28 @@ fun main() {
     println("\nAssign getNextActivityToAssign from ConcreteRecipe1 at the ProductionUnit1 activityWaitingList.")
     concreteRecipe1.getNextActivityToAssign()?.let { productionUnit1.addActivityToWaitingList(it) }
     println("\nProductionUnit1 doNextActivityFromWaitingList and put the resulting product in the warehouse")
-    productionUnit1.doNextActivityFromWaitingList()?.let { warehouse.addProduct(it, 1) }
+    productionUnit1.doNextActivityFromWaitingList(warehouse)
     printOrderStatus(order1)
     printWarehouseStatus(warehouse)
 
-    println("\nAssign getNextActivityToAssign from ConcreteRecipe1 at the ProductionUnit1 activityWaitingList.")
-    concreteRecipe1.getNextActivityToAssign()?.let { productionUnit1.addActivityToWaitingList(it) }
-    println("\nProductionUnit1 doNextActivityFromWaitingList and put the resulting product in the warehouse")
-    productionUnit1.doNextActivityFromWaitingList()?.let { warehouse.addProduct(it, 1) }
+    println("\nProductionUnit1 assign getNextActivityToAssign from ConcreteRecipe1 at the ProductionUnit2 activityWaitingList.")
+    concreteRecipe1.getNextActivityToAssign()?.let { productionUnit1.assignActivityToOtherProductionUnit(it, productionUnit2) }
+    println("\nProductionUnit2 doNextActivityFromWaitingList and put the resulting product in the warehouse")
+    productionUnit2.doNextActivityFromWaitingList(warehouse)
     printOrderStatus(order1)
     printWarehouseStatus(warehouse)
 
     println("\nAssign getNextActivityToAssign from ConcreteRecipe2 at the ProductionUnit2 activityWaitingList.")
     concreteRecipe2.getNextActivityToAssign()?.let { productionUnit2.addActivityToWaitingList(it) }
     println("\nProductionUnit2 doNextActivityFromWaitingList and put the resulting product in the warehouse")
-    productionUnit2.doNextActivityFromWaitingList()?.let { warehouse.addProduct(it, 1) }
+    productionUnit2.doNextActivityFromWaitingList(warehouse)
     printOrderStatus(order1)
     printWarehouseStatus(warehouse)
 
     println("\nAssign getNextActivityToAssign from ConcreteRecipe2 at the ProductionUnit2 activityWaitingList.")
     concreteRecipe2.getNextActivityToAssign()?.let { productionUnit2.addActivityToWaitingList(it) }
     println("\nProductionUnit2 doNextActivityFromWaitingList and put the resulting product in the warehouse")
-    productionUnit2.doNextActivityFromWaitingList()?.let { warehouse.addProduct(it, 1) }
+    productionUnit2.doNextActivityFromWaitingList(warehouse)
     printOrderStatus(order1)
     printWarehouseStatus(warehouse)
 }
