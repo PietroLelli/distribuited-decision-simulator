@@ -30,14 +30,18 @@ class ProductionUnitImpl(
 
     override fun doActivity(activity: Activity, warehouse: Warehouse) {
         var enoughResources = true
+        val neededResources : MutableMap<Resource, Int> = mutableMapOf()
         activity.requiredResources.forEach { (resource, quantity) ->
             if (warehouse.resources.containsKey(resource) && warehouse.resources[resource]!! >= quantity) {
-                getResourcesFromWarehouse(warehouse, resource, quantity)
+                neededResources += Pair(resource, quantity)
             }
             else
                 enoughResources = false
         }
         if (enoughResources) {
+            neededResources.forEach { (resource, quantity) ->
+                getResourcesFromWarehouse(warehouse, resource, quantity)
+            }
             val product = activity.execute()
             product?.let { warehouse.addProduct(it,1) }
         }
