@@ -40,7 +40,7 @@ class ProductionUnitImpl(
         }
         if (enoughResources) {
             neededResources.forEach { (resource, quantity) ->
-                getResourcesFromWarehouse(warehouse, resource, quantity)
+                warehouse.removeResource(resource, quantity)
             }
             val product = activity.execute()
             product?.let { warehouse.addProduct(it,1) }
@@ -59,7 +59,15 @@ class ProductionUnitImpl(
         productionUnit.addActivityToWaitingList(activity)
     }
 
-    private fun getResourcesFromWarehouse(warehouse: Warehouse, resource: Resource, quantity: Int) {
-        warehouse.removeResource(resource, quantity)
+    override fun setActivityFixedCost(activity: Activity, cost: Double) {
+        activity.activityFixedCost = cost
+    }
+
+    override fun setActivityVariableCost(activity: Activity, cost: Double) {
+        activity.activityVariableCost = cost
+    }
+
+    override fun setActivityTime(activity: Activity, time: Double) {
+        activity.time = time
     }
 }

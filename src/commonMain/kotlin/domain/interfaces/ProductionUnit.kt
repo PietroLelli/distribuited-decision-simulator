@@ -15,4 +15,8 @@ interface ProductionUnit {
     fun removeTeam(teamId: String)
 
     fun assignActivityToOtherProductionUnit(activity: Activity, productionUnit: ProductionUnit)
+
+    fun setActivityFixedCost(activity: Activity, cost: Double)
+    fun setActivityVariableCost(activity: Activity, cost: Double)
+    fun setActivityTime(activity: Activity, time: Double)
 }
