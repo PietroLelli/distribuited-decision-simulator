@@ -41,15 +41,14 @@ fun main() {
     println("\nAdded Team1 to ProductionUnit2")
     printProductionUnits()
 
-    val product1 : Product = ProductImpl("Product1")
-    val product2 : Product = ProductImpl("Product2")
+    val product1 : Product = FinalProductImpl("FinalProduct1")
+    val product2 : Product = ByProductImpl("ByProduct2")
     val activity1 : Activity = ActivityImpl("Activity1", 1.0, 1.0, 1.0, 1, ActivityState.TOBEASSIGNED, product1)
     val activity2 : Activity = ActivityImpl("Activity2", 2.0, 2.0, 2.0, 2, ActivityState.TOBEASSIGNED, product2)
     val recipe1 : Recipe = RecipeImpl("Recipe1", listOf(activity1, activity2))
     val concreteRecipe1 : ConcreteRecipe = ConcreteRecipeImpl("ConcreteRecipe1", recipe1)
     val concreteRecipe2 : ConcreteRecipe = ConcreteRecipeImpl("ConcreteRecipe2", recipe1)
     val order1 : Order = OrderImpl("Order1", listOf(concreteRecipe1, concreteRecipe2), 1)
-
 
     fun printOrderStatus(order: Order) {
         println("\nOrdine: ${order.idCode}")
@@ -59,13 +58,12 @@ fun main() {
                 println("\t\t- ${activity.idCode}: ${activity.state}")
             }
         }
-
     }
 
     fun printWarehouseStatus(warehouse: Warehouse) {
         println("\nWarehouse: ${warehouse.idCode}")
         println("Products:")
-        for (product in warehouse.products) {
+        for (product in warehouse.finalProducts) {
             println("\t- ${product.key.idCode}: ${product.value}")
         }
         println("ByProducts:")

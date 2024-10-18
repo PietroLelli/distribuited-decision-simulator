@@ -1,31 +1,31 @@
 package domain
 
-import domain.interfaces.ByProduct
-import domain.interfaces.Product
-import domain.interfaces.Resource
-import domain.interfaces.Warehouse
+import domain.interfaces.*
 
 class WarehouseImpl(
     override val idCode: String,
-    override var products: Map<Product, Int> = mapOf(),
+    override var finalProducts: Map<FinalProduct, Int> = mapOf(),
     override var byProducts: Map<ByProduct, Int> = mapOf(),
     override var resources: Map<Resource, Int> = mapOf()
 ) : Warehouse {
     override fun addProduct(product: Product, quantity: Int) {
-        if (products.containsKey(product)) {
-            val oldQuantity = products.getValue(product)
-            products += Pair(product, oldQuantity + quantity)
-        } else {
-            products += Pair(product, quantity)
-        }
-    }
-
-    override fun addByProduct(byProduct: ByProduct, quantity: Int) {
-        if (byProducts.containsKey(byProduct)) {
-            val oldQuantity = byProducts.getValue(byProduct)
-            byProducts += Pair(byProduct, oldQuantity + quantity)
-        } else {
-            byProducts += Pair(byProduct, quantity)
+        when (product) {
+            is FinalProduct -> {
+                if (finalProducts.containsKey(product)) {
+                    val oldQuantity = finalProducts.getValue(product)
+                    finalProducts += Pair(product, oldQuantity + quantity)
+                } else {
+                    finalProducts += Pair(product, quantity)
+                }
+            }
+            is ByProduct -> {
+                if (byProducts.containsKey(product)) {
+                    val oldQuantity = byProducts.getValue(product)
+                    byProducts += Pair(product, oldQuantity + quantity)
+                } else {
+                    byProducts += Pair(product, quantity)
+                }
+            }
         }
     }
 
@@ -39,23 +39,26 @@ class WarehouseImpl(
     }
 
     override fun removeProduct(product: Product, quantity: Int) {
-        if (products.containsKey(product)) {
-            val oldQuantity = products.getValue(product)
-            if (oldQuantity - quantity > 0) {
-                products += Pair(product, oldQuantity - quantity)
-            } else {
-                products -= product
+        when (product) {
+            is FinalProduct -> {
+                if (finalProducts.containsKey(product)) {
+                    val oldQuantity = finalProducts.getValue(product)
+                    if (oldQuantity - quantity > 0) {
+                        finalProducts += Pair(product, oldQuantity - quantity)
+                    } else {
+                        finalProducts -= product
+                    }
+                }
             }
-        }
-    }
-
-    override fun removeByProduct(byProduct: ByProduct, quantity: Int) {
-        if (byProducts.containsKey(byProduct)) {
-            val oldQuantity = byProducts.getValue(byProduct)
-            if (oldQuantity - quantity > 0) {
-                byProducts += Pair(byProduct, oldQuantity - quantity)
-            } else {
-                byProducts -= byProduct
+            is ByProduct -> {
+                if (byProducts.containsKey(product)) {
+                    val oldQuantity = byProducts.getValue(product)
+                    if (oldQuantity - quantity > 0) {
+                        byProducts += Pair(product, oldQuantity - quantity)
+                    } else {
+                        byProducts -= product
+                    }
+                }
             }
         }
     }
