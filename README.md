@@ -59,7 +59,11 @@
 
 **Warehouse:** Warehouse1  
 **Products:**  
+
+
 **ByProducts:**  
+
+
 **Resources:**
 - Resource1: 5
 - Resource2: 10
@@ -91,7 +95,11 @@
 **Warehouse:** Warehouse1  
 **Products:**
 - FinalProduct1: 1  
+
+
 **ByProducts:**  
+
+
 **Resources:**
 - Resource1: 4
 - Resource2: 10
@@ -113,8 +121,12 @@
 **Warehouse:** Warehouse1  
 **Products:**
 - FinalProduct1: 1  
+
+
 **ByProducts:**
 - ByProduct2: 1  
+
+
 **Resources:**
 - Resource1: 4
 - Resource2: 8
@@ -136,8 +148,12 @@
 **Warehouse:** Warehouse1  
 **Products:**
 - FinalProduct1: 2  
+
+
 **ByProducts:**
 - ByProduct2: 1  
+
+
 **Resources:**
 - Resource1: 3
 - Resource2: 8
@@ -159,8 +175,12 @@
 **Warehouse:** Warehouse1  
 **Products:**
 - FinalProduct1: 2  
+
+
 **ByProducts:**
 - ByProduct2: 2  
+
+
 **Resources:**
 - Resource1: 3
 - Resource2: 6
