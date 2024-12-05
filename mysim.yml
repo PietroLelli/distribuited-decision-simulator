@@ -1,0 +1,6 @@
+incarnation: protelis
+deployments:
+  properties:
+    - type: ProdUnit
+  type: Grid
+  parameters: [0, 0, 10, 10, 1, 1]

@@ -60,6 +60,14 @@ kotlin {
                 implementation(libs.bundles.kotest.common)
             }
         }
+        val jvmMain by getting {
+            dependencies {
+                implementation("it.unibo.alchemist:alchemist-api:36.0.0")
+                implementation("it.unibo.alchemist:alchemist-implementationbase:36.0.0")
+                implementation("it.unibo.alchemist:alchemist-loading:36.0.0")
+                implementation("it.unibo.alchemist:alchemist:36.0.0")
+                implementation("it.unibo.alchemist:alchemist-incarnation-protelis:36.0.0") }
+        }
         val jvmTest by getting {
             dependencies {
                 implementation(libs.kotest.runner.junit5)
